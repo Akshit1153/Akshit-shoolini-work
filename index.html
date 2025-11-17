@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamer's Nexus - Home</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <nav class="main-nav container">
+            <a href="index.html" class="logo">NEXUS</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Welcome to Gamer's Nexus</h1>
+            <p>Your ultimate hub for competitive gaming, news, and community events. Join the elite.</p>
+            <a href="register.html" class="btn btn-glow">Join Now</a>
+        </section>
+
+        <section class="countdown-section">
+            <div class="container">
+                <h2>Next Major Tournament Starts In:</h2>
+                <div id="countdown-timer">00d 00h 00m 00s</div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2025 Gamer's Nexus. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Countdown Timer ---
+        // Set the date for the countdown
+        const countdownDate = new Date("Dec 31, 2025 23:59:59").getTime();
+
+        const timer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            // Time calculations
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Display the result
+            document.getElementById("countdown-timer").innerHTML =
+                ${days}d ${hours}h ${minutes}m ${seconds}s;
+
+            // If the countdown is over
+            if (distance < 0) {
+                clearInterval(timer);
+                document.getElementById("countdown-timer").innerHTML = "EVENT STARTED!";
+            }
+        }, 1000);
+
+        // --- Active Nav Link ---
+        // This small script makes the current page's nav link visually distinct.
+        document.addEventListener('DOMContentLoaded', function() {
+            const activePage = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                // Use '.href' to get the full URL, then check if it ends with the active page path
+                if (link.href.endsWith(activePage.substring(activePage.lastIndexOf('/') + 1))) {
+                     link.classList.add('active');
+                } else {
+                     link.classList.remove('active');
+                }
+            });
+            // Special case for the root path
+             if (activePage === '/' || activePage.endsWith('index.html')) {
+                document.querySelector('.nav-links a[href="index.html"]').classList.add('active');
+             }
+        });
+    </script>
+</body>
+</html>
